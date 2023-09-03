@@ -37,14 +37,12 @@ plot = figure(title="Countries Sharing Borders in South Asia", x_range=(-2.5, 2.
 # Create a Bokeh graph from the NetworkX input using nx.spring_layout with adjusted scale
 graph = from_networkx(G, pos, scale=2.5, center=(0, 0))
 
-# Update node renderer data source to have country names and image URLs as additional columns
-graph.node_renderer.data_source.data['name'] = [G.nodes[idx]['name'] for idx in G.nodes()]
-graph.node_renderer.data_source.data['image'] = [f"{G.nodes[idx]['name']}.png" for idx in G.nodes()]
-
 # Use ImageURL glyph for nodes to display images with adjusted size and anchor point
 graph.node_renderer.glyph = ImageURL(url="image", w=0.2, h=0.2, anchor="center")
 graph.node_renderer.selection_glyph = ImageURL(url="image", w=0.2, h=0.2, anchor="center")
-graph.node_renderer.hover_glyph = ImageURL(url="image", w=0.2, h=0.2, anchor="center")
+
+# Use Circle glyph for hover effect
+graph.node_renderer.hover_glyph = Circle(size=25, fill_color="blue", fill_alpha=0.3)
 
 # Adjust edge line width for visibility
 graph.edge_renderer.glyph = MultiLine(line_color="#CCCCCC", line_alpha=0.8, line_width=2)
